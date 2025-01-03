@@ -92,6 +92,10 @@ void store_template_to_buf(){
     for (int k = 0; k < (512/finger.packet_len); k++) { //printing out the template data in seperate rows, where row-length = packet_length
       for (int l = 0; l < finger.packet_len; l++) {
         Serial.print("0x");
+        if (f_buf[(k * finger.packet_len) + l] < 16)
+        {
+          Serial.print("0"); // Add leading zero for single digit hex values, if not, data mismatch when writing to sensor
+        }
         Serial.print(f_buf[(k * finger.packet_len) + l], HEX);
         Serial.print(",");
       }
